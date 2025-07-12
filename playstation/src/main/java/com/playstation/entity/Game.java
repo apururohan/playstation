@@ -15,34 +15,34 @@ public class Game {
 	private int gameId;
 	private String gameName;
 	private int noOfPlayers;
-	private boolean onlinePlay;
-	private boolean display;
+	private Boolean onlinePlay;
+	private Boolean display;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id",referencedColumnName="userId")
-	private User userId;
+	private User user;
 
 	public Game() {
 		super();
 	}
 
 	
-	public Game(int gameId, String gameName, int noOfPlayers, boolean onlinePlay, boolean display, User userId) {
+	public Game(int gameId, String gameName, int noOfPlayers, boolean onlinePlay, boolean display, User user) {
 		super();
 		this.gameId = gameId;
 		this.gameName = gameName;
 		this.noOfPlayers = noOfPlayers;
 		this.onlinePlay = onlinePlay;
 		this.display = display;
-		this.userId = userId;
+		this.user = user;
 	}
 
 	
-	public Game(int gameId, String gameName, User userId) {
+	public Game(int gameId, String gameName, User user) {
 		super();
 		this.gameId = gameId;
 		this.gameName = gameName;
-		this.userId = userId;
+		this.user = user;
 		this.display = true;
 	}
 
@@ -63,7 +63,7 @@ public class Game {
 		this.gameName = gameName;
 	}
 
-	public int getNoOfPlayers() {
+	public Integer getNoOfPlayers() {
 		return noOfPlayers;
 	}
 
@@ -71,7 +71,7 @@ public class Game {
 		this.noOfPlayers = noOfPlayers;
 	}
 
-	public boolean isOnlinePlay() {
+	public Boolean isOnlinePlay() {
 		return onlinePlay;
 	}
 
@@ -79,7 +79,7 @@ public class Game {
 		this.onlinePlay = onlinePlay;
 	}
 
-	public boolean isDisplay() {
+	public Boolean isDisplay() {
 		return display;
 	}
 
@@ -87,12 +87,12 @@ public class Game {
 		this.display = display;
 	}
 
-	public User getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }
