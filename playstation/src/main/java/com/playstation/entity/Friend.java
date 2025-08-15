@@ -22,12 +22,12 @@ public class Friend {
 	@ManyToOne
 	@MapsId("senderId")
 	@JoinColumn(name="sender_id")
-	private User senderId;
+	private User sender;
 	
 	@ManyToOne
 	@MapsId("receiverId")
 	@JoinColumn(name="receiver_id")
-	private User receiverId;
+	private User receiver;
 	
 	@Enumerated(EnumType.STRING)
 	private RequestStatus status;
@@ -41,8 +41,8 @@ public class Friend {
 	public Friend(FriendRequestId friendRequestId, User senderId, User receiverId) {
 		super();
 		this.friendRequestId = friendRequestId;
-		this.senderId = senderId;
-		this.receiverId = receiverId;
+		this.sender = senderId;
+		this.receiver = receiverId;
 		this.status = RequestStatus.AWAITING;
 		this.requestedAt = LocalDateTime.now();
 	}
@@ -56,20 +56,20 @@ public class Friend {
 		this.friendRequestId = friendRequestId;
 	}
 
-	public User getSenderId() {
-		return senderId;
+	public User getSender() {
+		return sender;
 	}
 
-	public void setSenderId(User senderId) {
-		this.senderId = senderId;
+	public void setSender(User sender) {
+		this.sender = sender;
 	}
 
-	public User getReceiverId() {
-		return receiverId;
+	public User getReceiver() {
+		return receiver;
 	}
 
-	public void setReceiverId(User receiverId) {
-		this.receiverId = receiverId;
+	public void setReceiver(User receiver) {
+		this.receiver = receiver;
 	}
 
 	public RequestStatus getStatus() {
@@ -90,7 +90,7 @@ public class Friend {
 
 	@Override
 	public String toString() {
-		return "Friend [friendRequestId=" + friendRequestId + ", senderId=" + senderId + ", receiverId=" + receiverId
+		return "Friend [friendRequestId=" + friendRequestId + ", senderId=" + sender + ", receiverId=" + receiver
 				+ ", status=" + status + ", requestedAt=" + requestedAt + "]";
 	}
 	
