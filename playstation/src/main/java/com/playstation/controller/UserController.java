@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.playstation.datatransferobject.UserDTO;
 import com.playstation.entity.User;
 import com.playstation.service.UserService;
 
-@Controller
+@RestController
 public class UserController {
 	@Autowired
 	UserService userService;
@@ -38,13 +41,13 @@ public class UserController {
 		}
 	}
 	
-	@PostMapping("/api/user")
-	public ResponseEntity<User> addUser(@RequestBody User user){
+	@PostMapping("/api/addUser")
+	public ResponseEntity<UserDTO> addUser(@RequestBody User user) throws JsonProcessingException{
 		return new ResponseEntity<>(userService.addUser(user),HttpStatus.OK);
 	}
 	
 	@PutMapping("/api/user/{userId}")
-	public ResponseEntity<User> editUser(@PathVariable int userId, @RequestBody User user){
+	public ResponseEntity<UserDTO> editUser(@PathVariable int userId, @RequestBody User user) throws JsonProcessingException{
 		Optional<User>	originalUser = userService.getUser(userId);
 		if(originalUser.isEmpty()) {
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND); 
@@ -69,6 +72,17 @@ public class UserController {
 		else {
 			userService.deleteUser(userId);
 			return new ResponseEntity<>(HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping("/api/username/{username}")
+	public ResponseEntity<User> getUserByUsername(@PathVariable String username){
+		Optional<User> user = userService.getUserByUsername(username);
+		if(user.isEmpty()) {
+			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+		}
+		else {
+			return new ResponseEntity<User>(user.get(),HttpStatus.OK);
 		}
 	}
 }

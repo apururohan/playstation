@@ -13,8 +13,8 @@ import com.playstation.entity.FriendRequestId;
 
 public interface FriendRequestRepository extends JpaRepository<Friend, FriendRequestId>{
 	
-	 @Query("SELECT f FROM Friend f WHERE f.sender.id = :userId")
-	 List<Friend> friendRequestsSent(@Param("userId") int userId);
+	  @Query("SELECT f FROM Friend f WHERE f.sender.id = :userId")
+	  List<Friend> friendRequestsSent(@Param("userId") int userId);
 
 	  @Query("SELECT f FROM Friend f WHERE f.receiver.id = :userId")
 	  List<Friend> friendRequestsReceived(@Param("userId") int userId);
@@ -22,7 +22,6 @@ public interface FriendRequestRepository extends JpaRepository<Friend, FriendReq
 	  @Query("SELECT f FROM Friend f WHERE (f.sender.id = :senderId AND f.receiver.id = :receiverId) OR (f.sender.id = :receiverId AND f.receiver.id = :senderId)")
 	  Friend findByBothIds(@Param("senderId") int senderId, @Param("receiverId") int receiverId);
 
-	  // Optional: To find any relation (sent or received)
 	  @Query("SELECT f FROM Friend f WHERE f.sender.id = :userId OR f.receiver.id = :userId")
 	  List<Friend> findAllFriendRequestsOfUser(@Param("userId") int userId);
 }

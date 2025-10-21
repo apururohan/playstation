@@ -2,8 +2,9 @@ package com.playstation.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +21,9 @@ public class User {
 	private String emailId;
 	private String nickName;
 	private Date dateOfJoining;
+	private String password;
+	@Column(nullable=false,unique=true)
+	private String username;
 	public User() {
 		super();
 		this.dateOfJoining = new Date();
@@ -42,6 +46,36 @@ public class User {
 		this.emailId = emailId;
 		this.nickName = nickName;
 		this.dateOfJoining = new Date();
+	}
+	public User(int userId, String firstName, String lastName, String playStationId, String emailId, String nickName,
+			Date dateOfJoining, String password,String username) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.playStationId = playStationId;
+		this.emailId = emailId;
+		this.nickName = nickName;
+		this.dateOfJoining = dateOfJoining;
+		this.password = password;
+		this.username = username;
+	}
+	public User(String password, String username) {
+		super();
+		this.password = password;
+		this.username = username;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public int getUserId() {
 		return userId;
